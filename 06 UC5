@@ -1,0 +1,44 @@
+import java.util.Stack;
+
+public class PalindromeCheckerApp {
+
+    public static void main(String[] args) {
+
+        // Original string
+        String input = "madam";
+
+        System.out.println("PalindromeChecker App - UC5");
+        System.out.println("---------------------------------");
+        System.out.println("Original String: " + input);
+
+        // Create Stack of Characters
+        Stack<Character> stack = new Stack<>();
+
+        // Push characters into stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));   // Push Operation
+        }
+
+        boolean isPalindrome = true;
+
+        // Pop characters and compare
+        for (int i = 0; i < input.length(); i++) {
+            char poppedChar = stack.pop();  // Pop Operation
+
+            if (input.charAt(i) != poppedChar) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        // Print Result
+        if (isPalindrome) {
+            System.out.println("Result: The string is a Palindrome.");
+        } else {
+            System.out.println("Result: The string is NOT a Palindrome.");
+        }
+
+        System.out.println("---------------------------------");
+        System.out.println("Program execution completed.");
+    }
+}
