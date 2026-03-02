@@ -1,0 +1,48 @@
+import java.util.Stack;
+
+public class Palindromcheckerapp {
+
+    public static void main(String[] args) {
+
+        System.out.println("PalindromeChecker App - UC11");
+        System.out.println("---------------------------------");
+        String[] testStrings = {
+                "madam",
+                "RaceCar",
+                "Hello",
+                "A man a plan a canal Panama"
+        };
+
+        PalindromeChecker checker = new PalindromeChecker();
+
+        for (String s : testStrings) {
+            boolean result = checker.checkPalindrome(s);
+            System.out.println("Input: \"" + s + "\" → " +
+                    (result ? "Palindrome" : "Not a Palindrome"));
+        }
+
+        System.out.println("---------------------------------");
+        System.out.println("Program execution completed.");
+    }
+}
+
+class PalindromeChecker {
+
+    public boolean checkPalindrome(String input) {
+
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < normalized.length(); i++) {
+            stack.push(normalized.charAt(i));
+        }
+
+        for (int i = 0; i < normalized.length(); i++) {
+            if (normalized.charAt(i) != stack.pop()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
