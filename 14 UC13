@@ -1,0 +1,74 @@
+import java.util.Deque;
+import java.util.ArrayDeque;
+import java.util.Stack;
+
+public class Palindromcheckerapp {
+
+    public static void main(String[] args) {
+
+        System.out.println("PalindromeChecker App - UC13 (Performance Comparison)");
+        System.out.println("---------------------------------");
+
+        String input = "A man a plan a canal Panama";
+
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        long startStack = System.nanoTime();
+        boolean stackResult = isPalindromeStack(normalized);
+        long endStack = System.nanoTime();
+        long durationStack = endStack - startStack;
+
+        long startDeque = System.nanoTime();
+        boolean dequeResult = isPalindromeDeque(normalized);
+        long endDeque = System.nanoTime();
+        long durationDeque = endDeque - startDeque;
+
+        long startTwoPointer = System.nanoTime();
+        boolean twoPointerResult = isPalindromeTwoPointer(normalized);
+        long endTwoPointer = System.nanoTime();
+        long durationTwoPointer = endTwoPointer - startTwoPointer;
+
+        System.out.println("Input: \"" + input + "\"");
+        System.out.println("---------------------------------");
+        System.out.println("Algorithm\t\tResult\t\tExecution Time (ns)");
+        System.out.println("Stack\t\t\t" + stackResult + "\t\t" + durationStack);
+        System.out.println("Deque\t\t\t" + dequeResult + "\t\t" + durationDeque);
+        System.out.println("Two-Pointer\t\t" + twoPointerResult + "\t\t" + durationTwoPointer);
+
+        System.out.println("---------------------------------");
+        System.out.println("Program execution completed.");
+    }
+
+    public static boolean isPalindromeStack(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            stack.push(c);
+        }
+        for (char c : s.toCharArray()) {
+            if (c != stack.pop()) return false;
+        }
+        return true;
+    }
+
+    public static boolean isPalindromeDeque(String s) {
+        Deque<Character> deque = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            deque.addLast(c);
+        }
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) return false;
+        }
+        return true;
+    }
+
+    public static boolean isPalindromeTwoPointer(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
