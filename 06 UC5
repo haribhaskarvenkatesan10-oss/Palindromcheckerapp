@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class PalindromeCheckerApp {
+public class Palindromcheckerapp {
 
     public static void main(String[] args) {
 
