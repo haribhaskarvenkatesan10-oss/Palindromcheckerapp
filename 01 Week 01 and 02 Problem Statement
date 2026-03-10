@@ -1,0 +1,97 @@
+import java.util.*;
+
+public class PalindromeCheckerApp {
+
+    private HashMap<String, Integer> usernameMap;
+
+    private HashMap<String, Integer> attemptCount;
+
+    public PalindromeCheckerApp() {
+        usernameMap = new HashMap<>();
+        attemptCount = new HashMap<>();
+    }
+
+    public void registerUser(String username, int userId) {
+        usernameMap.put(username, userId);
+    }
+
+    public boolean checkAvailability(String username) {
+
+        attemptCount.put(username, attemptCount.getOrDefault(username, 0) + 1);
+
+        return !usernameMap.containsKey(username);
+    }
+
+    public List<String> suggestAlternatives(String username) {
+
+        List<String> suggestions = new ArrayList<>();
+
+        for (int i = 1; i <= 5; i++) {
+            String candidate = username + i;
+
+            if (!usernameMap.containsKey(candidate)) {
+                suggestions.add(candidate);
+            }
+        }
+
+        String alt1 = username.replace("_", ".");
+        if (!usernameMap.containsKey(alt1)) {
+            suggestions.add(alt1);
+        }
+
+        String alt2 = username + "_official";
+        if (!usernameMap.containsKey(alt2)) {
+            suggestions.add(alt2);
+        }
+
+        return suggestions;
+    }
+
+    public String getMostAttempted() {
+
+        String mostAttempted = null;
+        int maxAttempts = 0;
+
+        for (Map.Entry<String, Integer> entry : attemptCount.entrySet()) {
+
+            if (entry.getValue() > maxAttempts) {
+                maxAttempts = entry.getValue();
+                mostAttempted = entry.getKey();
+            }
+        }
+
+        return mostAttempted + " (" + maxAttempts + " attempts)";
+    }
+
+    public void printUsers() {
+        for (Map.Entry<String, Integer> entry : usernameMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+    }
+
+    public static void main(String[] args) {
+
+        PalindromeCheckerApp service = new PalindromeCheckerApp();
+
+        service.registerUser("john_doe", 101);
+        service.registerUser("admin", 102);
+        service.registerUser("alex99", 103);
+
+        System.out.println("john_doe available? " + service.checkAvailability("john_doe"));
+        System.out.println("jane_smith available? " + service.checkAvailability("jane_smith"));
+
+        System.out.println("\nSuggestions for john_doe:");
+        List<String> suggestions = service.suggestAlternatives("john_doe");
+
+        for (String s : suggestions) {
+            System.out.println(s);
+        }
+
+        service.checkAvailability("admin");
+        service.checkAvailability("admin");
+        service.checkAvailability("admin");
+        service.checkAvailability("john_doe");
+
+        System.out.println("\nMost attempted username: " + service.getMostAttempted());
+    }
+}
