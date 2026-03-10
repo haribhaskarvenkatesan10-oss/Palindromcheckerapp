@@ -1,17 +1,24 @@
 import java.util.*;
 
-public class PalindromeCheckerApp {
-    public static void main(String[] args) {
+public class PalindromeCheckerApp  public static void main(String[] args) {
 
-        System.out.println("=====================================");
-        System.out.println(" Welcome to PalindromeCheckerApp");
-        System.out.println(" Version 1.0");
-        System.out.println("=====================================");
-        System.out.println("This application validates whether");
-        System.out.println("a given string is a palindrome.");
-        System.out.println("-------------------------------------");
+    String word = "madam";
 
-        System.out.println("Application initialized successfully.");
-        System.out.println("Proceeding to next module...\n");
+    System.out.println("PalindromeChecker App - UC2");
+    System.out.println("---------------------------------");
+    System.out.println("Checking the word: " + word);
+
+    String reversed = "";
+    for (int i = word.length() - 1; i >= 0; i--) {
+        reversed = reversed + word.charAt(i);
     }
+
+    if (word.equals(reversed)) {
+        System.out.println("Result: \"" + word + "\" is a Palindrome.");
+    } else {
+        System.out.println("Result: \"" + word + "\" is NOT a Palindrome.");
+    }
+
+    System.out.println("---------------------------------");
+    System.out.println("Program execution completed.");
 }
